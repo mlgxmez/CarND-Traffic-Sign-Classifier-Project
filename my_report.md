@@ -16,9 +16,9 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
+[image1]: ./dist_train.png "Visualization"
+[image2]: ./original_normali.png "Grayscaling"
+[image3]: ./augmented_img.png "Random Noise"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
 [image6]: ./examples/placeholder.png "Traffic Sign 3"
@@ -122,7 +122,8 @@ Another fact about including the dropout layer with low *keep_prob* is that it i
 
 I was curious if the trained model was able to correctly classify Spanish traffic signs. Four of them were quite similar to german ones and the purpose of the last one was chosen just to fool the classifier and have fun:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
+![alt text][image4] 
+![alt text][image5] ![alt text][image6] 
 ![alt text][image7] ![alt text][image8]
 
 The last image might be difficult to classify because actually I think it does not exist in the German roads. The meaning of that sign is recommended speed of (70 km/h).
