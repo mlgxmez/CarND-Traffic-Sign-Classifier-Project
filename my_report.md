@@ -16,14 +16,12 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./dist_train.png "Visualization"
-[image2]: ./original_normali.png "Grayscaling"
-[image3]: ./augmented_img.png "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image1]: ./dist_train.png "Distribution of classes"
+[image2]: ./original_normali.png "Grayscaling and normalization"
+[image3]: ./augmented_img.png "Augmented images"
+[image4]: ./test_img.png "New traffic signs to test the classifier"
+[image5]: ./topk_img.png "Top 5 prediction on test images"
+
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -70,7 +68,7 @@ Here is an example of an original image and an augmented image:
 
 ![alt text][image3]
 
-The difference between the original data set and the augmented data set is the following: The augmented data set besides including the original data set, it contains zoomed, rotated and blurred images. And then some augmented images have been dismissed on order to get a balanced number of images for every class. The data set to train the model now has 1980 images multiplied by 43 classes making in total 85140 images. The new distribution of images is shown in the notebook.
+The difference between the original data set and the augmented data set is the following: The augmented data set besides including the original data set, it contains zoomed, rotated and blurred images. And then some augmented images have been dismissed on order to get a balanced number of images for every class. The data set to train the model now has 2160 images multiplied by 43 classes making in total 92880 images. The new distribution of images is shown in the notebook.
 
 
 ####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
@@ -100,14 +98,12 @@ My final model consisted of the following layers:
 
 ####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used as parameters a batch size of 128 samples for 100 epochs. The most important parameters in my case have been the learning rate, set to 0.001 and the *keep_prob* in the dropout layer. This parameter has been set to 0.5 for training to avoid overfitting and generalize better when the model is used for classification. For evaluation on the validation set *keep_prob* has been set to 1.0. The optimizer chose was Adam.
-
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+To train the model, I used as parameters a batch size of 128 samples for 40 epochs. The most important parameters in my case have been the learning rate, set to 0.001 and the *keep_prob* in the dropout layer. This parameter has been set to 0.5 for training to avoid overfitting and generalize better when the model is used for classification. For evaluation on the validation set *keep_prob* has been set to 1.0. The optimizer chose was Adam.
 
 My final model results were:
-* training set accuracy of 0.994
-* validation set accuracy of 0.939
-* test set accuracy of 0.912
+* training set accuracy of 0.987
+* validation set accuracy of 0.971
+* test set accuracy of 0.936
 
 The idea with this model was to slightly make the network's architecture more complex than the LeNet. This is the reason why the relu and dropout layers where added to the original model where possible. The problems you face with this architecture is the moment you have to tune the parameters to get higher accuracy.
 
@@ -118,17 +114,11 @@ Another fact about including the dropout layer with low *keep_prob* is that it i
 
 ###Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
-
 I was curious if the trained model was able to correctly classify Spanish traffic signs. Four of them were quite similar to german ones and the purpose of the last one was chosen just to fool the classifier and have fun:
 
 ![alt text][image4] 
-![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
 
 The last image might be difficult to classify because actually I think it does not exist in the German roads. The meaning of that sign is recommended speed of (70 km/h).
-
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
@@ -141,26 +131,10 @@ Here are the results of the prediction:
 | Recommended speed (70 km/h)			| Speed limit (20 km/h)      							|
 
 
-The model was able to correctly guess 3 of the 5 traffic signs, which gives an accuracy of 60%.
+The model was able to correctly guess 3 of the 5 traffic signs, which gives an accuracy of 60%. Looking at the top 5 predictions of each image you can get an idea on how certain is the model to classify new images. 
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+![alt text][image5]
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The most obvious traffic signs have outstanding predictions whereas for the last two, the correct class among the top 5 predictions is not included. Those wrong classification were made on purpose, since they are quite difficult to infer the class (for the case of the bicycles crossing sign) or the class has not been trained in the model (for the recommended speed of 70 km/h).
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
-
-
-For the second image ... 
-
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
-
-
+The section of visualizing a layer of a neural network will be done in a future date.
